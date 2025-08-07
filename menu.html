@@ -1,0 +1,563 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Epic Menu | Delish Dine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #f8f5f2;
+      --text: #333333;
+      --primary: #e74c3c;
+      --secondary: #3498db;
+      --card: #ffffff;
+      --accent: #f39c12;
+      --text-light: #666666;
+      --success: #2ecc71;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(231, 76, 60, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(52, 152, 219, 0.05) 0%, transparent 20%);
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f5f2 100%);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      box-shadow: var(--shadow);
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(231, 76, 60, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 30%, rgba(52, 152, 219, 0.03) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      font-weight: 300;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem auto;
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      z-index: 99;
+      padding: 1.5rem;
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      max-width: 1200px;
+      border-radius: 0 0 15px 15px;
+      box-shadow: var(--shadow);
+    }
+
+    .filters button {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filters button::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .filters button:hover,
+    .filters button.active {
+      color: var(--text);
+    }
+
+    .filters button:hover::before,
+    .filters button.active::before {
+      width: 60%;
+    }
+
+    .filters button.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .menu-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .menu-item {
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .menu-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .menu-item:hover img {
+      transform: scale(1.03);
+    }
+
+    .menu-item h3 {
+      margin: 0.5rem 0;
+      font-size: 1.4rem;
+      color: var(--text);
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+    }
+
+    .menu-item h3::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .menu-item p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin: 1rem 0;
+      min-height: 40px;
+    }
+
+    .menu-item span {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(231, 76, 60, 0.1);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .menu-item:hover span {
+      background: rgba(231, 76, 60, 0.2);
+      transform: scale(1.05);
+    }
+
+    .category-tag {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      z-index: 2;
+    }
+
+    .jump {
+      animation: jump 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes jump {
+      0% { transform: translateY(0) scale(1); opacity: 0; }
+      50% { transform: translateY(-20px) scale(1.05); opacity: 1; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .toggle-theme {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--card);
+      border: none;
+      color: var(--text);
+      font-size: 1.3rem;
+      border-radius: 50%;
+      padding: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+    }
+
+    .toggle-theme:hover {
+      background: var(--primary);
+      color: white;
+      transform: rotate(15deg) scale(1.1);
+    }
+
+    /* Dark theme overrides */
+    [data-theme='dark'] {
+      --bg: #121212;
+      --text: #f5f5f5;
+      --primary: #ff6b6b;
+      --secondary: #4ecdc4;
+      --card: #1e1e1e;
+      --accent: #ff9e7d;
+      --text-light: #b0b0b0;
+      --success: #6bff8f;
+      --shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    [data-theme='dark'] header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #121212 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    [data-theme='dark'] header::before {
+      background: radial-gradient(circle at 20% 50%, rgba(255, 107, 107, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 30%, rgba(78, 205, 196, 0.05) 0%, transparent 50%);
+    }
+
+    [data-theme='dark'] .filters {
+      background: rgba(30, 30, 30, 0.95);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    [data-theme='dark'] .menu-item {
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* Floating food icons decoration */
+    .floating-icon {
+      position: absolute;
+      opacity: 0.08;
+      z-index: 0;
+      animation: float 15s infinite linear;
+      color: var(--primary);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(10deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .subtitle {
+        font-size: 1rem;
+      }
+      
+      .filters {
+        padding: 1rem;
+      }
+      
+      .filters button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+      }
+      
+      .menu-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        padding: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .menu-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <audio id="clickSound" src="https://www.fesliyanstudios.com/play-mp3/387" preload="auto"></audio>
+
+  <!-- Floating decorative icons -->
+  <i class="floating-icon" style="top: 10%; left: 5%; font-size: 3rem;">🍕</i>
+  <i class="floating-icon" style="top: 30%; right: 8%; font-size: 2.5rem;">🍔</i>
+  <i class="floating-icon" style="bottom: 20%; left: 7%; font-size: 3rem;">🍣</i>
+  <i class="floating-icon" style="bottom: 40%; right: 5%; font-size: 2rem;">🍩</i>
+  <i class="floating-icon" style="top: 15%; right: 15%; font-size: 2.5rem;">🥗</i>
+
+  <header>
+    <div class="header-content">
+      <h1>Epic Menu</h1>
+      <p class="subtitle">Experience culinary excellence with our carefully crafted selection of gourmet dishes</p>
+      <button class="toggle-theme" onclick="toggleTheme()" title="Toggle Theme">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterMenu('all', this)">
+      <i class="fas fa-utensils"></i> All
+    </button>
+    <button class="filter-btn" onclick="filterMenu('starter', this)">
+      <i class="fas fa-seedling"></i> Starters
+    </button>
+    <button class="filter-btn" onclick="filterMenu('main', this)">
+      <i class="fas fa-drumstick-bite"></i> Mains
+    </button>
+    <button class="filter-btn" onclick="filterMenu('dessert', this)">
+      <i class="fas fa-ice-cream"></i> Desserts
+    </button>
+    <button class="filter-btn" onclick="filterMenu('drink', this)">
+      <i class="fas fa-glass-whiskey"></i> Drinks
+    </button>
+  </div>
+
+  <div class="menu-container" id="menuContainer"></div>
+
+  <script>
+    const menuItems = [
+      // Starters
+      { cat: 'starter', img: 'https://www.maggi.co.uk/sites/default/files/srh_recipes/2058a74f39245e0065743463242b5f91.jpg', name: 'Spring Rolls', price: 120, desc: 'Crispy rolls stuffed with fresh vegetables and served with tangy dipping sauce.' },
+      { cat: 'starter', img: 'https://www.anchordairy.com/my/en/recipes/quick-and-easy/cheesy-nachos/_jcr_content/root/container/container/container/image.coreimg.jpeg/1719276899255/anchor-malaysia-recipes-quick-and-easy-cheesy-nachos.jpeg', name: 'Cheesy Nachos', price: 150, desc: 'Golden tortilla chips topped with melted cheese, jalapeños, and fresh salsa.' },
+      { cat: 'starter', img: 'https://jennifercooks.com/wp-content/uploads/2024/07/tomate-and-mozzarella-bruschetta-with-balsamic-drizzle-recipe-jennifercooks_0155-scaled.jpeg', name: 'Bruschetta', price: 130, desc: 'Grilled bread rubbed with garlic and topped with olive oil, salt, tomato, and herbs.' },
+      { cat: 'starter', img: 'https://s3-ap-south-1.amazonaws.com/betterbutterbucket-silver/ritu-arora020180111172007064.jpeg', name: 'Veg Dimsum', price: 140, desc: 'Delicate steamed dumplings filled with seasoned vegetables and mushrooms.' },
+      { cat: 'starter', img: 'https://spicecravings.com/wp-content/uploads/2020/10/Paneer-Tikka-Featured-1.jpg', name: 'Paneer Tikka', price: 160, desc: 'Marinated paneer cubes grilled to perfection with bell peppers and onions.' },
+      { cat: 'starter', img: 'https://rasamalaysia.com/wp-content/uploads/2024/11/skillet-garlic-bread-3.jpg', name: 'Garlic Bread', price: 100, desc: 'Crusty bread topped with garlic butter and herbs, baked until golden.' },
+      { cat: 'starter', img: 'https://cdn.zeptonow.com/production///tr:w-600,ar-100-100,pr-true,f-auto,q-80/web/recipes/gobi-manchurian.png', name: 'Veg Manchurian', price: 150, desc: 'Crispy vegetable balls tossed in a savory, slightly sweet Manchurian sauce.' },
+      { cat: 'starter', img: 'https://www.gimmesomeoven.com/wp-content/uploads/2021/09/Roasted-Tomato-Soup-Recipe-8.jpg', name: 'Tomato Soup', price: 90, desc: 'Creamy tomato soup with a hint of basil, served with croutons.' },
+      { cat: 'starter', img: 'https://www.funfoodfrolic.com/wp-content/uploads/2022/07/Corn-Chaat-Blog.jpg', name: 'Corn Chaat', price: 110, desc: 'Spiced corn kernels tossed with onions, tomatoes, and tangy chutneys.' },
+      { cat: 'starter', img: 'https://www.dinneratthezoo.com/wp-content/uploads/2019/12/mozzarella-sticks-4.jpg', name: 'Mozzarella Sticks', price: 140, desc: 'Breaded mozzarella sticks fried until golden and served with marinara.' },
+      { cat: 'starter', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHO8NGIlJ3LtggPY44bl0a98RyXArSSx5cmhb-cTL8oO9k_YS5Y7hqgX8r2uGi0JgERT8&usqp=CAU', name: 'Veg Cutlet', price: 100, desc: 'Crispy patties made with mashed vegetables and seasoned breadcrumbs.' },
+      { cat: 'starter', img: 'https://ministryofcurry.com/wp-content/uploads/2021/01/air-fryer-spicy-french-fries_-2.jpg', name: 'Masala Fries', price: 90, desc: 'Crispy fries tossed with special masala spices and served with aioli.' },
+      { cat: 'starter', img: 'https://ohsweetbasil.com/wp-content/uploads/one-hour-garlic-knots-2-scaled.jpg', name: 'Cheesy Stuffed Bombs', price: 100, desc: 'Warm bread rolls stuffed with gooey cheese and garlic butter.' },
+      { cat: 'starter', img: 'https://www.deliciouslyhomecooked.com/wp-content/uploads/2025/02/mini-tacos-recipe-0.jpeg', name: 'Mini Taco Trios', price: 90, desc: 'Bite-sized tacos with seasoned fillings and fresh toppings.' },
+             
+      // Mains
+      { cat: 'main', img: 'https://skinnyspatula.com/wp-content/uploads/2022/10/Creamy_Garlic_Chicken_Pasta_0-735x735.jpg', name: 'Creamy Pasta', price: 220, desc: 'Al dente pasta in a rich, creamy garlic parmesan sauce.' },
+      { cat: 'main', img: 'https://i0.wp.com/www.chitrasfoodbook.com/wp-content/uploads/2015/01/burger-recipe.jpg?w=1200&ssl=1', name: 'Veg Burger', price: 180, desc: 'Juicy veggie patty with lettuce, tomato, and special sauce on a brioche bun.' },
+      { cat: 'main', img: 'https://i.ytimg.com/vi/xdshDFwu9x4/maxresdefault.jpg', name: 'Margherita Pizza', price: 250, desc: 'Classic pizza with tomato sauce, fresh mozzarella, and basil leaves.' },
+      { cat: 'main', img: 'https://i.ytimg.com/vi/Do7ZdUodDdw/maxresdefault.jpg', name: 'Veg Biryani', price: 200, desc: 'Fragrant basmati rice cooked with mixed vegetables and aromatic spices.' },
+      { cat: 'main', img: 'https://www.cubesnjuliennes.com/wp-content/uploads/2020/06/Spicy-Chicken-Hakka-Noodles-Recipe.jpg', name: 'Hakka Noodles', price: 170, desc: 'Stir-fried noodles with crisp vegetables in a savory sauce.' },
+      { cat: 'main', img: 'https://myfoodstory.com/wp-content/uploads/2021/07/restaurant-style-paneer-butter-masala-2-500x500.jpg', name: 'Paneer Butter Masala', price: 220, desc: 'Soft paneer cubes in a rich, creamy tomato-based gravy.' },
+      { cat: 'main', img: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2022/02/dal-makhani-recipe.jpg', name: 'Dal Makhani', price: 180, desc: 'Slow-cooked black lentils simmered with butter and cream.' },
+      { cat: 'main', img: 'https://eastindianrecipes.net/wp-content/uploads/2022/09/How-to-Make-North-Indian-Thali-Vegetarian-7.jpg', name: 'Indian Thali', price: 300, desc: 'Assorted Indian dishes served with rice, bread, and accompaniments.' },
+      { cat: 'main', img: 'https://myvegetarianroots.com/wp-content/uploads/2022/02/DSC_0020-500x375.jpeg', name: 'Jeera Rice', price: 140, desc: 'Fragrant basmati rice tempered with cumin seeds and ghee.' },
+      { cat: 'main', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKbBkKf9jWlHRBZXlh3jS82c5ui1LZKcnAyw&s', name: 'Veg Wrap', price: 150, desc: 'Grilled tortilla stuffed with fresh vegetables and sauces.' },
+      { cat: 'main', img: 'https://zuranazrecipe.com/wp-content/uploads/2016/01/IMG_0375-copy1.jpg', name: 'Mix Veg Curry', price: 190, desc: 'Seasonal vegetables cooked in a flavorful curry sauce.' },
+      { cat: 'main', img: 'https://img.clevup.in/301880/1693931357009_plainb.jpeg?width=600&format=webp', name: 'Butter Roti (2)', price: 50, desc: 'Soft whole wheat bread brushed with butter.' },
+      { cat: 'main', img: 'https://i0.wp.com/spicechronicles.com/wp-content/uploads/2016/04/Alu-Paratha_650.jpg?resize=640%2C640&ssl=1', name: 'Stuffed Paratha Sizzler', price: 190, desc: 'Flaky stuffed bread served sizzling with butter and sides.' },
+      { cat: 'main', img: 'https://www.chefkunalkapur.com/wp-content/uploads/2021/03/Masala-Macaroni-Pasta-scaled.jpg?v=1620872083', name: 'Masala Mac & Cheese', price: 70, desc: 'Classic macaroni with an Indian spice twist and cheese sauce.' },
+
+      // Desserts
+      { cat: 'dessert', img: 'https://www.carnation.co.uk/sites/default/files/2021-03/vanilla-ice-cream-mobile_1.jpg', name: 'Vanilla Ice Cream', price: 80, desc: 'Classic vanilla bean ice cream with rich, creamy texture.' },
+      { cat: 'dessert', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTPGCIZ8ErZ1HTRS0lmI6cPgeBJUFl4wqpA&s', name: 'Chocolate Brownie', price: 100, desc: 'Warm, fudgy chocolate brownie with a crispy top.' },
+      { cat: 'dessert', img: 'https://dessertdonelight.com/wp-content/uploads/2020/08/Vegan-Strawberry-Cupcake-1-1.jpg', name: 'Strawberry Cupcake', price: 90, desc: 'Moist vanilla cupcake topped with strawberry frosting.' },
+      { cat: 'dessert', img: 'https://aartimadan.com/wp-content/uploads/2020/11/milk-powder-gulab-jamuns.jpg', name: 'Gulab Jamun', price: 120, desc: 'Soft milk dumplings soaked in rose-scented sugar syrup.' },
+      { cat: 'dessert', img: 'https://www.bigbasket.com/media/uploads/recipe/w-l/912_1.jpg', name: 'Carrot Halwa', price: 130, desc: 'Sweet carrot pudding cooked with milk, ghee, and nuts.' },
+      { cat: 'dessert', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdrSF_ZAbad99MQqOwVuNcDox-Td0WpDND_w&s', name: 'Pineapple Pastry', price: 90, desc: 'Light sponge cake layered with pineapple cream.' },
+      { cat: 'dessert', img: 'https://www.lifeloveandsugar.com/wp-content/uploads/2023/06/Chocolate-Cupcakes-Recipe3.jpg', name: 'Choco Muffin', price: 80, desc: 'Rich chocolate muffin with melty chocolate chips.' },
+      { cat: 'dessert', img: 'https://theobroma.in/cdn/shop/files/HIGHRESBlueberryCheesecake-Square_grande.jpg?v=1711180961', name: 'Blueberry Cheesecake', price: 140, desc: 'Creamy cheesecake with blueberry compote topping.' },
+      { cat: 'dessert', img: 'https://www.theflavorbender.com/wp-content/uploads/2020/04/Vanilla-Pudding-4457.jpg', name: 'Vanilla Pudding', price: 100, desc: 'Smooth vanilla custard with a hint of vanilla bean.' },
+      { cat: 'dessert', img: 'https://www.eatloveeats.com/wp-content/uploads/2022/02/Raspberry-Dark-Chocolate-Truffles-Featured.jpg', name: 'Chocolate Truffle', price: 150, desc: 'Decadent dark chocolate ganache dusted with cocoa.' },
+      { cat: 'dessert', img: 'https://cdn.dotpe.in/longtail/store-items/6315874/n9dXz0oE.jpeg', name: 'Butterscotch Scoop', price: 90, desc: 'Creamy butterscotch ice cream with caramel swirls.' },
+      { cat: 'dessert', img: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2021/10/kaju-katli-500x500.jpg', name: 'Kaju Katli', price: 160, desc: 'Thin diamond-shaped cashew fudge pieces.' },
+      { cat: 'dessert', img: 'https://5.imimg.com/data5/SELLER/Default/2021/6/OF/NP/JW/67332021/traditional-rasmalai-recipe.jpg', name: 'Rasmalai', price: 190, desc: 'Soft cheese patties soaked in sweetened, flavored milk.' },
+      { cat: 'dessert', img: 'https://thebrowniestudio.com/cdn/shop/files/4_ff77293b-6331-4549-a6d9-5c6d45496a9d.jpg?v=1724586803', name: 'Brownie Churro Bowl', price: 160, desc: 'Warm churros served with brownie pieces and chocolate sauce.' },
+
+      // Drinks
+      { cat: 'drink', img: 'https://media.istockphoto.com/id/1225230295/photo/close-up-glass-of-refreshing-cola.jpg?s=612x612&w=0&k=20&c=fC4EcutAt7j2Uc9tQkOA6cH6cg-_Tz3S4fwP2y8kqQE=', name: 'Cola', price: 50, desc: 'Classic carbonated cola served chilled with ice.' },
+      { cat: 'drink', img: 'https://media.istockphoto.com/id/1401150816/photo/two-glasses-of-lemonade-with-mint-and-lemons.jpg?s=612x612&w=0&k=20&c=LuuInHwGO11q3aBbAmyMy4JvZ3njV4R0IRE10klTLew=', name: 'Fresh Lemonade', price: 60, desc: 'Homemade lemonade with fresh mint and a hint of honey.' },
+      { cat: 'drink', img: 'https://mytastycurry.com/wp-content/uploads/2020/04/Cafe-style-cold-coffee-with-icecream.jpg', name: 'Cold Coffee', price: 80, desc: 'Chilled coffee blended with milk and ice cream.' },
+      { cat: 'drink', img: 'https://shopsugandh.com/cdn/shop/products/masalaimage2_62239011-b64b-4248-9e6e-cb0127a9ab6f_1024x1024.jpg?v=1662987547', name: 'Masala Tea', price: 40, desc: 'Spiced Indian tea with ginger, cardamom, and milk.' },
+      { cat: 'drink', img: 'https://cookilicious.com/wp-content/uploads/2025/01/Brownie-Milkshake-Recipe-20-scaled.jpg', name: 'Chocolate Milkshake', price: 100, desc: 'Creamy milkshake made with real chocolate and ice cream.' },
+      { cat: 'drink', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJkOH8DNNVnCZ9avKFax1bSkWVlrbLOjVZpg&s', name: 'Mint Mojito', price: 90, desc: 'Refreshing mint lime soda with crushed ice.' },
+      { cat: 'drink', img: 'https://lilluna.com/wp-content/uploads/2022/10/fruit-smoothie-resize-14.jpg', name: 'Fruit Smoothie', price: 110, desc: 'Blended mix of seasonal fruits with yogurt.' },
+      { cat: 'drink', img: 'https://www.indianveggiedelight.com/wp-content/uploads/2023/01/sweet-lassi-recipe-featured.jpg', name: 'Sweet Lassi', price: 70, desc: 'Traditional yogurt drink sweetened and flavored.' },
+      { cat: 'drink', img: 'https://domf5oio6qrcr.cloudfront.net/medialibrary/8468/Tea.jpg', name: 'Green Tea', price: 60, desc: 'Premium green tea leaves brewed to perfection.' },
+      { cat: 'drink', img: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8b3JhbmdlJTIwanVpY2V8ZW58MHx8MHx8fDA%3D', name: 'Orange Juice', price: 80, desc: 'Freshly squeezed orange juice with pulp.' },
+      { cat: 'drink', img: 'https://www.pumpkinnspice.com/wp-content/uploads/2022/07/IMG_1386.jpg', name: 'Iced Latte', price: 85, desc: 'Espresso with chilled milk served over ice.' },
+      { cat: 'drink', img: 'https://www.mommyhatescooking.com/wp-content/uploads/2023/10/mocha-4-scaled.jpg', name: 'Cafe Mocha', price: 95, desc: 'Espresso with chocolate and steamed milk.' },
+      { cat: 'drink', img: 'https://i.ytimg.com/vi/0gSRa09U5P4/maxresdefault.jpg', name: 'Pista Milkshake', price: 75, desc: 'Creamy milkshake flavored with pistachios.' },
+      { cat: 'drink', img: 'https://spicecravings.com/wp-content/uploads/2022/06/Masala-Coke-Featured.jpg', name: 'Masala Cola Splash', price: 85, desc: 'Cola infused with Indian spices for a unique twist.' }
+    ];
+
+    const container = document.getElementById('menuContainer');
+
+    function filterMenu(category, btn) {
+      // sound
+      document.getElementById('clickSound').play();
+
+      // active button
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // filter items
+      const filtered = category === 'all' ? menuItems : menuItems.filter(item => item.cat === category);
+
+      container.innerHTML = '';
+
+      filtered.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'menu-item';
+
+        // Category tag
+        const categoryTag = document.createElement('div');
+        categoryTag.className = 'category-tag';
+        categoryTag.textContent = getCategoryName(item.cat);
+        categoryTag.style.backgroundColor = getCategoryColor(item.cat);
+        div.appendChild(categoryTag);
+
+        const img = document.createElement('img');
+        img.src = item.img;
+        img.alt = item.name;
+        img.loading = 'lazy';
+
+        const name = document.createElement('h3');
+        name.textContent = item.name;
+
+        const desc = document.createElement('p');
+        desc.textContent = item.desc;
+
+        const price = document.createElement('span');
+        price.textContent = `₹${item.price}`;
+
+        div.appendChild(img);
+        div.appendChild(name);
+        div.appendChild(desc);
+        div.appendChild(price);
+
+        container.appendChild(div);
+
+        setTimeout(() => div.classList.add('jump'), 10);
+      });
+    }
+
+    function getCategoryName(cat) {
+      const names = {
+        'starter': 'Starter',
+        'main': 'Main',
+        'dessert': 'Dessert',
+        'drink': 'Drink'
+      };
+      return names[cat] || '';
+    }
+
+    function getCategoryColor(cat) {
+      const colors = {
+        'starter': '#3498db',
+        'main': '#e74c3c',
+        'dessert': '#f39c12',
+        'drink': '#2ecc71'
+      };
+      return colors[cat] || '#666';
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.querySelector('.toggle-theme i');
+
+      if (html.getAttribute('data-theme') === 'dark') {
+        html.removeAttribute('data-theme');
+        btn.classList.remove('fa-sun');
+        btn.classList.add('fa-moon');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        btn.classList.remove('fa-moon');
+        btn.classList.add('fa-sun');
+      }
+    }
+
+    // Initial load
+    filterMenu('all', document.querySelector('.filter-btn.active'));
+  </script>
+</body>
+</html>
