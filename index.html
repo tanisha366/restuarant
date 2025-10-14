@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -304,6 +305,30 @@
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
         }
+        .hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0; /* behind the content */
+}
+.hero-content {
+    position: relative;
+    z-index: 1; /* above video */
+}
+.hero::after {
+    content: ''; /* optional dark overlay */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 0;
+}
+
         
         .special-item img {
             width: 100%;
@@ -768,7 +793,7 @@
 </head>
 <body>
     <!-- ===== HEADER & NAVBAR ===== -->
-    <header>
+  <header>
         <nav>
             <a href="#" class="logo">Gourmet Delight</a>
             <ul class="nav-links">
@@ -784,13 +809,18 @@
     </header>
 
     <!-- ===== HERO SECTION ===== -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Exquisite Dining Experience</h1>
-            <p>Where culinary artistry meets unparalleled hospitality in an ambiance of refined elegance.</p>
-            <a href="#reservation" class="btn">Reserve Your Table</a>
-        </div>
-    </section>
+   <section class="hero" id="home">
+    <!-- Video Background -->
+    <video autoplay muted loop playsinline class="hero-video">
+        <source src="https://res.cloudinary.com/db6zbklfs/video/upload/v1760377268/7772232-hd_1080_1920_24fps_ltg1yh.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+       <div class="hero-content">
+        <h1>Exquisite Dining Experience</h1>
+        <p>Where culinary artistry meets unparalleled hospitality in an ambiance of refined elegance.</p>
+        <a href="#reservation" class="btn">Reserve Your Table</a>
+    </div>
+</section>
 
     <!-- ===== MENU SECTION ===== -->
     <section class="menu" id="menu">
@@ -1161,5 +1191,3 @@
     </script>
 </body>
 </html>
-
-
